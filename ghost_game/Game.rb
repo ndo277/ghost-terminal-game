@@ -29,20 +29,21 @@ class Game
   def play_round 
     self.take_turn
     if self.lose?
-      puts "#{@current_player.name} lost! Next round!"
-      puts "-----"
+      puts "#{@current_player.name} spelled a word! Next round!"
       @current_player.loss_count += 1
       self.print_game_record
       self.eliminate_player
       @fragment = ""
+      sleep(2)
     end
     self.next_player!
   end
 
   def eliminate_player
     if @current_player.eliminated?
-      @players.delete(@current_player) 
+      @players.delete(@current_player)
       puts "#{@current_player.name} is eliminated!"
+      sleep(2)
     end
   end
 
@@ -50,7 +51,6 @@ class Game
     @players.each do |player| 
       puts "#{player.name}: #{to_letters(player.loss_count)}"
     end
-    puts "-----"
   end
 
   def to_letters(count)
@@ -75,7 +75,6 @@ class Game
 
   def print_fragment
     puts "Current fragment: #@fragment"
-    puts "-----"
   end
 
   def lose?
@@ -83,6 +82,8 @@ class Game
   end
 
   def take_turn
+    system("clear")
+    self.print_fragment
     puts "#{@current_player.name}, enter a guess:"
     guess = @current_player.guess
 
@@ -93,7 +94,6 @@ class Game
 
     if valid_play?(guess)
       @fragment += guess
-      self.print_fragment
     end
 
   end
