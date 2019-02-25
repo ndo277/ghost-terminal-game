@@ -11,7 +11,8 @@ end
 
 game = Game.new(*names)
 
-game.run until game.over? 
+game.run until game.over?
+system("clear")
 puts "GAME OVER"
 puts "#{game.players[0].name} wins!"
 
