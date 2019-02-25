@@ -13,7 +13,7 @@ class Game
     players.each {|player| @players << Player.new(player) if player.is_a? String}
 
 
-    @current_player = @players[rand(0...players.length)]
+    @current_player = @players[0]
     @fragment = ""
     @turn = 0
   end
