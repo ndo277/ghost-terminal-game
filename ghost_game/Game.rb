@@ -2,6 +2,7 @@ require "set"
 require_relative "Player.rb"
 
 class Game
+
   attr_reader :players
 
   def initialize(player_1, player_2, *other_players)
@@ -11,7 +12,6 @@ class Game
     @players = []
     players = [player_1, player_2, *other_players]
     players.each {|player| @players << Player.new(player) if player.is_a? String}
-
 
     @current_player = @players[0]
     @fragment = ""
@@ -29,6 +29,7 @@ class Game
   def play_round 
     self.take_turn
     if self.lose?
+      self.print_fragment
       puts "#{@current_player.name} spelled a word! Next round!"
       @current_player.loss_count += 1
       self.print_game_record
@@ -99,6 +100,7 @@ class Game
   end
 
   def valid_play?(str)
+    str.downcase!
     @dictionary.any? {|word| word.start_with?(@fragment + str)}
   end
 
